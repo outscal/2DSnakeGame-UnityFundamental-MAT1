@@ -30,7 +30,9 @@ namespace SnakeGame.Snake
 		{
 			m_CurrentDirection = Vector2.right;
 			m_NextDirection = Vector2.right;
+			bodyService.SetHead(this);
 			bodyService.ResetBody();
+			transform.position += (Vector3)m_CurrentDirection;
 		}
 
 		private void Update()
@@ -79,6 +81,15 @@ namespace SnakeGame.Snake
 			if (m_CurrentDirection != -m_NextDirection)
 				m_CurrentDirection = m_NextDirection;
 			transform.position += (Vector3)m_CurrentDirection;
+		}
+
+		private void OnTriggerEnter2D(Collider2D collision)
+		{
+			if (collision.TryGetComponent(out BodyController body))
+			{
+				Time.timeScale = 0;
+				Debug.Log("Player Dead");
+			}
 		}
 	}
 }

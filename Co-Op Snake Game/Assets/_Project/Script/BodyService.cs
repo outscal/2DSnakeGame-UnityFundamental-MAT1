@@ -11,7 +11,13 @@ namespace SnakeGame.Snake
 		public int startCount;
 
 		private List<BodyController> m_bodies;
-		
+		private SnakeController head;
+
+		internal void SetHead(SnakeController snakeController)
+		{
+			head = snakeController;
+		}
+
 		internal void Move(Vector3 position)
 		{
 			if(IsBodyEmpty())
@@ -42,6 +48,18 @@ namespace SnakeGame.Snake
 			BodyController newBody = Object.Instantiate(bodyPrefab);
 			newBody.transform.parent = bodyCollection;
 			m_bodies.Add(newBody);
+			SetPosition();
+		}
+
+		private void SetPosition()
+		{
+			Vector3 newPosition;
+			if (m_bodies.Count > 1)
+				newPosition = m_bodies[^2].transform.position;
+			else
+				newPosition = head.transform.position;
+
+			m_bodies[^1].setPosition(newPosition);
 		}
 
 		public bool IsBodyEmpty()
