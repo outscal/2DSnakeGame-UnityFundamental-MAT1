@@ -25,21 +25,33 @@ namespace SnakeGame.Snake
 		private float m_MoveTimer;
 
 		public BodyService bodyService;
+		private Boundary bounds;
 
 		private void Start()
 		{
-			m_CurrentDirection = Vector2.right;
-			m_NextDirection = Vector2.right;
-			bodyService.SetHead(this);
-			bodyService.ResetBody();
+			InitDirection();
+			InitBody();
 			transform.position += (Vector3)m_CurrentDirection;
+			bounds = BoundController.bounds;
 		}
 
+		private void InitBody()
+		{
+			bodyService.SetHead(this);
+			bodyService.ResetBody();
+		}
+
+		private void InitDirection()
+		{
+			m_CurrentDirection = Vector2.right;
+			m_NextDirection = Vector2.right;
+		}
+
+		// Input
 		private void Update()
 		{
 			GetInput();
 		}
-
 		private void GetInput()
 		{
 			if (Input.GetKeyDown(keyConfig.up))
@@ -51,12 +63,9 @@ namespace SnakeGame.Snake
 			else if (Input.GetKeyDown(keyConfig.down))
 				SetDirection(Vector2.down);
 		}
+		private void SetDirection(Vector2 direction) => m_NextDirection = direction;
 
-		private void SetDirection(Vector2 direction)
-		{
-			m_NextDirection = direction;
-		}
-
+		// Movement
 		private void FixedUpdate()
 		{
 			Movement();
@@ -73,7 +82,6 @@ namespace SnakeGame.Snake
 		}
 		private void IncreaseTimer() => m_MoveTimer += Time.fixedDeltaTime;
 		private void ResetTimer() => m_MoveTimer = 0;
-
 		private void MoveSnake()
 		{
 			bodyService.Move(transform.position);
@@ -81,6 +89,24 @@ namespace SnakeGame.Snake
 			if (m_CurrentDirection != -m_NextDirection)
 				m_CurrentDirection = m_NextDirection;
 			transform.position += (Vector3)m_CurrentDirection;
+
+			CheckScreenWarp();
+		}
+
+		private void CheckScreenWarp()
+		{
+			Vector3 newPos = transform.position;
+
+			if (newPos.x > bounds.boundMaxX)
+				newPos.x = bounds.boundMinX;
+			else if (newPos.x < bounds.boundMinX)
+				newPos.x = bounds.boundMaxX;
+			else if (newPos.y > bounds.boundMaxY)
+				newPos.y = bounds.boundMinY;
+			else if (newPos.y < bounds.boundMinY)
+				newPos.y = bounds.boundMaxY;
+
+			transform.position = newPos;
 		}
 
 		private void OnTriggerEnter2D(Collider2D collision)
