@@ -87,9 +87,14 @@ namespace SnakeGame.Snake
 		{
 			if (collision.TryGetComponent(out BodyController body))
 			{
-				Time.timeScale = 0;
-				Debug.Log("Player Dead");
+				Death();
 			}
+		}
+
+		public void Death()
+		{
+			Time.timeScale = 0;
+			Debug.Log("Player Dead");
 		}
 	}
 }
