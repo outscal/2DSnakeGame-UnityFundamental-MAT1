@@ -1,34 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using SnakeGame.Snake;
 
-namespace SnakeGame.Consumable
+namespace SnakeGame.Item
 {
-    public abstract class Consumable : MonoBehaviour
+    public abstract class Consumable : ItemController
     {
-		private Boundary bounds;
-
-		private void Start()
+		public abstract void Consume(SnakeController snake);
+		protected override void CollisionEffect(SnakeController snake)
 		{
-			bounds = BoundController.bounds;
+			Consume(snake);
+			base.CollisionEffect(snake);
 		}
-		private void OnTriggerEnter2D(Collider2D collision)
-		{
-			if (collision.TryGetComponent(out SnakeController snake))
-			{
-				Consume(snake);
-				Repostion();
-			}
-		}
-
-		private void Repostion()
-		{
-			transform.position = new Vector3(
-				Random.Range(bounds.boundMinX, bounds.boundMaxX), 
-				Random.Range(bounds.boundMinY, bounds.boundMaxY), 0);
-		}
-
-		public abstract void Consume(SnakeController snake);	
 	}
 }
