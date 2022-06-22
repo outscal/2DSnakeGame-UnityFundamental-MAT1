@@ -7,6 +7,12 @@ namespace SnakeGame.Consumable
 {
     public abstract class Consumable : MonoBehaviour
     {
+		private Boundary bounds;
+
+		private void Start()
+		{
+			bounds = BoundController.bounds;
+		}
 		private void OnTriggerEnter2D(Collider2D collision)
 		{
 			if (collision.TryGetComponent(out SnakeController snake))
@@ -14,12 +20,13 @@ namespace SnakeGame.Consumable
 				Consume(snake);
 				Repostion();
 			}
-			
 		}
 
 		private void Repostion()
 		{
-			transform.position = new Vector3(Random.Range(35, -35), Random.Range(-19, 19), 0);
+			transform.position = new Vector3(
+				Random.Range(bounds.boundMinX, bounds.boundMaxX), 
+				Random.Range(bounds.boundMinY, bounds.boundMaxY), 0);
 		}
 
 		public abstract void Consume(SnakeController snake);	
