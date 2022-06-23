@@ -6,18 +6,12 @@ namespace SnakeGame.Snake
 {
 	public class SnakeController : MonoBehaviour
 	{
-		public float speed;
+		public Team team;
+		public float Speed { get; set; }
+		public Color Color { get; private set; }
+		public SpriteRenderer sprite;
 
-		[Serializable]
-		public struct InputKeyConfig
-		{
-			public KeyCode up;
-			public KeyCode left;
-			public KeyCode right;
-			public KeyCode down;
-		}
-
-		public InputKeyConfig keyConfig;
+		private InputKeyConfig keyConfig;
 
 		private Vector2 m_CurrentDirection;
 		private Vector2 m_NextDirection;
@@ -25,28 +19,50 @@ namespace SnakeGame.Snake
 
 		public BodyService bodyService;
 		private Boundary bounds;
-
+		[HideInInspector]
 		public PowerUp activePower;
+		[HideInInspector]
 		public bool isShieldActive;
 
 		private void Start()
 		{
-			InitDirection();
-			InitBody();
-			transform.position += (Vector3)m_CurrentDirection;
 			bounds = BoundController.bounds;
+			isShieldActive = true;
+			Invoke(nameof(SafeStart), 0.5f);
 		}
 
+		public void SafeStart() => isShieldActive = false;
+
+		public void InitializeSnake(Team team, Color color, InputKeyConfig keyConfig, float speed, int initialBodyCount, Vector2 initalDirection, Transform bodyCollection)
+		{
+			this.team = team;
+			Color = color;
+			Speed = speed;
+			this.keyConfig = keyConfig;
+			m_CurrentDirection = initalDirection;
+			bodyService.StartCount = initialBodyCount;
+			bodyService.BodyCollection = bodyCollection;
+
+			InitSnake();
+			InitDirection(initalDirection);
+			InitBody();
+		}
+
+		private void InitSnake()
+		{
+			transform.position += (Vector3)m_CurrentDirection;
+			m_NextDirection = m_CurrentDirection;
+			sprite.color = Color;
+		}
+		private void InitDirection(Vector2 direction)
+		{
+			m_CurrentDirection = direction;
+			m_NextDirection = direction;
+		}
 		private void InitBody()
 		{
 			bodyService.SetHead(this);
 			bodyService.ResetBody();
-		}
-
-		private void InitDirection()
-		{
-			m_CurrentDirection = Vector2.right;
-			m_NextDirection = Vector2.right;
 		}
 
 		// Input
@@ -67,6 +83,8 @@ namespace SnakeGame.Snake
 		}
 		private void SetDirection(Vector2 direction) => m_NextDirection = direction;
 
+
+
 		// Movement
 		private void FixedUpdate()
 		{
@@ -76,7 +94,7 @@ namespace SnakeGame.Snake
 		private void Movement()
 		{
 			IncreaseTimer();
-			if (m_MoveTimer > (1 / speed))
+			if (m_MoveTimer > (1 / Speed))
 			{
 				ResetTimer();
 				MoveSnake();

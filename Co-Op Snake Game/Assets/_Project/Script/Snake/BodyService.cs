@@ -7,15 +7,15 @@ namespace SnakeGame.Snake
 	public class BodyService
 	{
 		public BodyController bodyPrefab;
-		public Transform bodyCollection;
-		public int startCount;
+		public Transform BodyCollection { get; set; }
+		public int StartCount { get; set; }
 
 		private List<BodyController> m_Bodies;
 		private List<BodyController> m_DeadBodies;
 		private SnakeController head;
 
 		// Initialization
-		internal void ResetBody()
+		public void ResetBody()
 		{
 			if (m_Bodies == null)
 				m_Bodies = new List<BodyController>();
@@ -24,18 +24,18 @@ namespace SnakeGame.Snake
 				m_DeadBodies = new List<BodyController>();
 	
 			m_Bodies.Clear();
-			for (int i = 0; i < startCount; i++)
+			for (int i = 0; i < StartCount; i++)
 			{
 				AddBody();
 			}
 		}
 
 		//Setter
-		internal void SetHead(SnakeController snakeController) =>	head = snakeController;
+		public void SetHead(SnakeController snakeController) =>	head = snakeController;
 
 		
 		// Movement
-		internal void Move(Vector3 position)
+		public void Move(Vector3 position)
 		{
 			if(IsBodyEmpty())
 				return;
@@ -56,7 +56,8 @@ namespace SnakeGame.Snake
 		public void CreateBody()
 		{
 			BodyController newBody = Object.Instantiate(bodyPrefab);
-			newBody.transform.parent = bodyCollection;
+			newBody.transform.parent = BodyCollection;
+			newBody.GetComponent<SpriteRenderer>().color = head.Color;
 			m_Bodies.Add(newBody);
 			SetPosition();
 		}
@@ -73,7 +74,7 @@ namespace SnakeGame.Snake
 		}
 
 		// Consume Effect
-		internal void AddBody()
+		public void AddBody()
 		{
 			if (m_DeadBodies.Count == 0)
 			{
@@ -88,7 +89,7 @@ namespace SnakeGame.Snake
 			body.gameObject.SetActive(true);
 		}
 
-		internal void RemoveBody()
+		public void RemoveBody()
 		{
 			if(m_Bodies.Count == 0)
 			{

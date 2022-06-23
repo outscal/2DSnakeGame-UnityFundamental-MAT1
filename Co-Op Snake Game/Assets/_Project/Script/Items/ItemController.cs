@@ -5,6 +5,11 @@ namespace SnakeGame.Item
 {
     public abstract class ItemController : MonoBehaviour
     {
+		private void Start()
+		{
+			transform.position = BoundController.Repostion();
+		}
+
 		private void OnTriggerEnter2D(Collider2D collision)
 		{
 			if (collision.TryGetComponent(out SnakeController snake))
