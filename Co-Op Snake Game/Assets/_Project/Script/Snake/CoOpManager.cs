@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using SnakeGame.Snake;
+using System;
 
 namespace SnakeGame
 {
@@ -23,11 +24,6 @@ namespace SnakeGame
 
 		private void Start()
 		{
-            snakes = new SnakeController[teams.Length];
-			for (int teamIndex = 0; teamIndex < teams.Length; teamIndex++)
-			{
-                snakes[teamIndex] = CreateSnake(teams[teamIndex]) ;
-			}
 		}
 
 		private SnakeController CreateSnake(TeamProperties team)
@@ -37,6 +33,43 @@ namespace SnakeGame
 			newSnake.InitializeSnake(team.team, team.color, team.keyConfig,speed, initialBodyCount, initalDirection, bodyCollection);
             newSnake.transform.parent = headCollection;
             return newSnake;
+		}
+
+		internal void StartGame()
+		{
+			RemovePreviousSnakes();
+			snakes = new SnakeController[teams.Length];
+			for (int teamIndex = 0; teamIndex < teams.Length; teamIndex++)
+			{
+				snakes[teamIndex] = CreateSnake(teams[teamIndex]);
+			}
+		}
+
+		private void RemovePreviousSnakes()
+		{
+			if (snakes == null)
+				return;
+
+			for (int i = 0; i < snakes.Length; i++)
+			{
+				Destroy(snakes[i].gameObject);
+			}
+
+			RemoveBodies();
+		}
+
+		private void RemoveBodies()
+		{
+			Transform[] childs = new Transform[bodyCollection.childCount];
+
+			for (int i = 0; i < bodyCollection.childCount; i++)
+			{
+				childs[i] = bodyCollection.GetChild(i);
+			}
+			foreach (Transform child in childs)
+			{
+				Destroy(child.gameObject);
+			}
 		}
 	}
 }
