@@ -5,7 +5,7 @@ namespace SnakeGame.Item
 {
     public abstract class ItemController : MonoBehaviour
     {
-		private void Start()
+		protected virtual void Start()
 		{
 			transform.position = BoundController.Repostion();
 		}
