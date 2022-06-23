@@ -11,6 +11,7 @@ namespace SnakeGame
 
 		public CoOpManager coOpManager;
 		public ScoreController scoreController;
+		public UIController uiController;
 
 		private void Awake()
 		{
@@ -30,7 +31,7 @@ namespace SnakeGame
 		public void UpdateScore(int value, Team team, bool isDecrease = false)
 		{
 			scoreController.UpdateScore(value, team, isDecrease);
-			//Update UI
+			uiController.UpdateScore(scoreController.Score);
 		}
 	}
 }
