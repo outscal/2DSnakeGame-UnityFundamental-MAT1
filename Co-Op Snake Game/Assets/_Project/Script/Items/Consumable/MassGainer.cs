@@ -1,6 +1,6 @@
 using SnakeGame.Snake;
 
-namespace SnakeGame.Item
+namespace SnakeGame.Item.Consumbale
 {
     public class MassGainer : Consumable
     {

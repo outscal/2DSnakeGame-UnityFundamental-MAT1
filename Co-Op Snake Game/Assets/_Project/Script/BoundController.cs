@@ -12,7 +12,6 @@ namespace SnakeGame
 
     public class BoundController : MonoBehaviour
     {
-
         public static Boundary bounds;
 
 		private BoxCollider2D col; 

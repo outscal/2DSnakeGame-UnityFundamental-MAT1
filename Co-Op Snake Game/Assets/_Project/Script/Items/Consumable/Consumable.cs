@@ -1,6 +1,6 @@
 using SnakeGame.Snake;
 
-namespace SnakeGame.Item
+namespace SnakeGame.Item.Consumbale
 {
     public abstract class Consumable : ItemController
     {
