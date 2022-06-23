@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace SnakeGame
@@ -15,7 +12,6 @@ namespace SnakeGame
 
     public class BoundController : MonoBehaviour
     {
-
         public static Boundary bounds;
 
 		private BoxCollider2D col; 
@@ -33,6 +29,13 @@ namespace SnakeGame
 			bounds.boundMinX = - bounds.boundMaxX;
 			bounds.boundMaxY = (int)(col.size.y/2);
 			bounds.boundMinY = - bounds.boundMaxY;
+		}
+
+		public static Vector2 Repostion()
+		{
+			return new Vector2(
+				Random.Range(bounds.boundMinX, bounds.boundMaxX),
+				Random.Range(bounds.boundMinY, bounds.boundMaxY));
 		}
 	}
 }

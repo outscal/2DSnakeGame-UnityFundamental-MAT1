@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using SnakeGame.Snake;
 
-namespace SnakeGame.Consumable
+namespace SnakeGame.Item.Consumbale
 {
     public class MassGainer : Consumable
     {

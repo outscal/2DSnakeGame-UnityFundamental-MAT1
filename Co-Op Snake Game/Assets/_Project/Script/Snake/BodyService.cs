@@ -42,10 +42,10 @@ namespace SnakeGame.Snake
 
 			for (int bodyIndex = m_Bodies.Count-1; bodyIndex >= 1; bodyIndex--)
 			{
-				m_Bodies[bodyIndex].setPosition(m_Bodies[bodyIndex - 1].transform.position);
+				m_Bodies[bodyIndex].SetPosition(m_Bodies[bodyIndex - 1].transform.position);
 			}
 
-			m_Bodies[0].setPosition(position);
+			m_Bodies[0].SetPosition(position);
 		}
 		public bool IsBodyEmpty()
 		{
@@ -69,7 +69,7 @@ namespace SnakeGame.Snake
 			else
 				newPosition = head.transform.position;
 
-			m_Bodies[^1].setPosition(newPosition);
+			m_Bodies[^1].SetPosition(newPosition);
 		}
 
 		// Consume Effect
@@ -82,7 +82,7 @@ namespace SnakeGame.Snake
 			}
 
 			BodyController body = m_DeadBodies[^1];
-			body.setPosition(m_Bodies[^1].transform.position);
+			body.SetPosition(m_Bodies[^1].transform.position);
 			m_Bodies.Add(body);
 			m_DeadBodies.Remove(body);
 			body.gameObject.SetActive(true);

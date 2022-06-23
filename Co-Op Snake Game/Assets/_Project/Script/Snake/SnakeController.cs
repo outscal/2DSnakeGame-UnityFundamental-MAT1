@@ -1,7 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using SnakeGame.Item.PowerUp;
 
 namespace SnakeGame.Snake
 {
@@ -26,6 +25,9 @@ namespace SnakeGame.Snake
 
 		public BodyService bodyService;
 		private Boundary bounds;
+
+		public PowerUp activePower;
+		public bool isShieldActive;
 
 		private void Start()
 		{
@@ -111,12 +113,11 @@ namespace SnakeGame.Snake
 
 		private void OnTriggerEnter2D(Collider2D collision)
 		{
-			if (collision.TryGetComponent(out BodyController body))
+			if (collision.TryGetComponent(out BodyController body) && !isShieldActive)
 			{
 				Death();
 			}
 		}
-
 		public void Death()
 		{
 			Time.timeScale = 0;

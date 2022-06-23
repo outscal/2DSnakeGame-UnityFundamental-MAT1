@@ -7,7 +7,7 @@ namespace SnakeGame.Snake
 	{
 		public Color bodyColor;
 
-		internal void setPosition(Vector3 position)
+		internal void SetPosition(Vector3 position)
 		{
 			transform.position = position;
 		}
