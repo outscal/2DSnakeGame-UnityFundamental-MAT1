@@ -11,12 +11,12 @@ namespace SnakeGame.Item.PowerUp
 		public float speedMutiplier;
 		public override void UsePowerup(SnakeController snake)
 		{
-			snake.speed *= speedMutiplier;
+			snake.Speed *= speedMutiplier;
 		}
 
 		public override void ResetPowerUp(SnakeController snake)
 		{
-			snake.speed /= speedMutiplier;
+			snake.Speed /= speedMutiplier;
 		}
 	}
 }
