@@ -138,8 +138,7 @@ namespace SnakeGame.Snake
 		}
 		public void Death()
 		{
-			Time.timeScale = 0;
-			Debug.Log("Player Dead");
+			GameManager.Instance.GameOver();
 		}
 	}
 }

@@ -12,8 +12,9 @@ namespace SnakeGame.Item.PowerUp
 		private SpriteRenderer sprite;
 		private PolygonCollider2D col;
 
-		private void Start()
+		protected override void Start()
 		{
+			base.Start();
 			sprite = GetComponent<SpriteRenderer>();
 			col = GetComponent<PolygonCollider2D>();
 		}

@@ -1,4 +1,5 @@
 using SnakeGame.Snake;
+using SnakeGame.Item.PowerUp;
 
 namespace SnakeGame.Item.Consumbale
 {
@@ -12,6 +13,14 @@ namespace SnakeGame.Item.Consumbale
 			{
 				snake.bodyService.AddBody();
 			}
+
+			int effectiveScore = score;
+
+			if (snake.activePower != null)
+				if (snake.activePower.TryGetComponent(out ScoreBoost scoreBoost))
+					effectiveScore *= scoreBoost.boostMultiplier;
+		
+			GameManager.Instance.UpdateScore(effectiveScore, snake.team);
 		}
 	}
 }
