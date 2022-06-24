@@ -423,6 +423,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   alphaScoreText: {fileID: 8200262}
   charlieScoreText: {fileID: 1829713198}
+  WinText: {fileID: 1206711873}
+  MainMenuPanel: {fileID: 1307738019}
+  GameOverPanel: {fileID: 1721857998}
 --- !u!4 &332412813 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3579829663912470267, guid: f7051265087899f489000adb60498770, type: 3}
@@ -799,7 +802,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 627073504}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 47311095}
+        m_TargetAssemblyTypeName: SnakeGame.UIController, Assembly-CSharp
+        m_MethodName: StartGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &627073504
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -994,7 +1009,7 @@ GameObject:
   - component: {fileID: 1112457531}
   - component: {fileID: 1112457530}
   m_Layer: 5
-  m_Name: RestartButton
+  m_Name: PlayButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1063,7 +1078,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1112457531}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 47311095}
+        m_TargetAssemblyTypeName: SnakeGame.UIController, Assembly-CSharp
+        m_MethodName: StartGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1112457531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1317,7 +1344,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1307738020
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1457,7 +1484,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1721857999
 RectTransform:
   m_ObjectHideFlags: 0

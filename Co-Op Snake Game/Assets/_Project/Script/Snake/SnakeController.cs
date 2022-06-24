@@ -133,12 +133,17 @@ namespace SnakeGame.Snake
 		{
 			if (collision.TryGetComponent(out BodyController body) && !isShieldActive)
 			{
-				Death();
+				Death(body.team == team);
 			}
 		}
-		public void Death()
+		public void Death(bool isSuicide)
 		{
-			GameManager.Instance.GameOver();
+			GameManager.Instance.GameOver(team,isSuicide);
+		}
+
+		private void OnDestroy()
+		{
+			bodyService = null;
 		}
 	}
 }

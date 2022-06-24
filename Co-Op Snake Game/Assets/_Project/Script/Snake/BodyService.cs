@@ -58,6 +58,7 @@ namespace SnakeGame.Snake
 			BodyController newBody = Object.Instantiate(bodyPrefab);
 			newBody.transform.parent = BodyCollection;
 			newBody.GetComponent<SpriteRenderer>().color = head.Color;
+			newBody.team = head.team;
 			m_Bodies.Add(newBody);
 			SetPosition();
 		}
@@ -93,7 +94,7 @@ namespace SnakeGame.Snake
 		{
 			if(m_Bodies.Count == 0)
 			{
-				head.Death();
+				head.Death(true);
 				return;
 			}
 
